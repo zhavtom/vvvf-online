@@ -22,32 +22,26 @@ class vvvfOscillator extends AudioWorkletProcessor {
                 defaultValue: 60,
                 min: 1,
                 max: 100
+            },
+            {
+                name: 'random_mod',
+                defaultValue: 0,
+                min: 0,
+                max: 100,
             }
         ];
     }
     constructor(){
         super();
-
-        this.port.onmessage = event => {
-            if(event.data.voltage){
-                this.voltage = event.data.voltage;
-            }
-            if(event.data.car_freq){
-                this.car_freq = event.data.car_freq;
-            }
-            if(event.data.modfreq){
-                this.modfreq = event.data.modfreq;
-            }
-        }
-        this.port.start();
     }
     process(inputs, outputs, parameters){
         const out = outputs[0][0];
         const outlen = out.length;
         for (let x = 0; x < outlen; x++){
+            const rand_mod = Math.random() * parameters.random_mod[0] * 2;
             const voltage = parameters.voltage[0] / 100;
-            const car_clk = (parameters.car_freq[0] * x) / sampleRate;
-            const mod_clk = (parameters.mod_freq[0] * x) / sampleRate;
+            const car_clk = ((parameters.car_freq[0] + rand_mod) * x) / sampleRate;
+            const mod_clk = ((parameters.mod_freq[0] + rand_mod) * x) / sampleRate;
 
             const car_tri = [];
             car_tri[x] = 2 * Math.abs(saw((car_ofs + car_clk)) - 1 / 2) ;

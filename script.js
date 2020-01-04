@@ -86,6 +86,7 @@ const context = new AudioContext();
 context.audioWorklet.addModule("inverter.js").then(() => {
     const osc = new AudioWorkletNode(context, 'vvvf-oscillator');
     osc.connect(context.destination);
+    osc.parameters.get('random_mod').value = 0;
     sendMsg(osc);
 });
 
