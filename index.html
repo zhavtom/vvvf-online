@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>VVVF Online</title>
+    <script src="script.js"></script>
 </head>
 <body>
-    <script src="script.js"></script>
+    <input type="button" value="Car Level +" onclick="buttonClick('mlv', 1);"> <a id="mlv_val">0</a><a>%</a> <input type="button" value="Car Level -" onclick="buttonClick('mlv', -1);"><br>
+    <input type="button" value="Car Freq +" onclick="buttonClick('cf', 1);"> <a id="cf_val">0</a> <input type="button" value="Car Freq -" onclick="buttonClick('cf', -1);"><br>
+    <input type="button" value="Mod Freq +" onclick="buttonClick('mf', 1);"> <a id="mf_val">0</a> <input type="button" value="Mod Freq -" onclick="buttonClick('mf', -1);">
+    <input type="button" value="Play" onclick="resumeAudio();">
 </body>
 </html>
