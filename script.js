@@ -1,6 +1,6 @@
 var modLvl = 0;
 var carFrq = 600;
-var modFrq = 60;
+var modFrq = 0;
 
 var mlvDiff = 0;
 var cfDiff = 0;
@@ -43,11 +43,11 @@ async function setParams(){
             }
             if(carFrq > 8000){
                 carFrq = 8000;
-                mlvDiff = 0;
+                cfDiff = 0;
             }
             if(carFrq < 0){
                 carFrq = 0;
-                mlvDiff = 0;
+                cfDiff = 0;
             }
 
             if(modFrq <= 100 && modFrq >= 0){
@@ -55,11 +55,11 @@ async function setParams(){
             }
             if(modFrq > 100){
                 modFrq = 100;
-                mlvDiff = 0;
+                mfDiff = 0;
             }
             if(modFrq < 0){
                 modFrq = 0;
-                mlvDiff = 0;
+                mfDiff = 0;
             }
 
         }
@@ -86,7 +86,7 @@ const context = new AudioContext();
 context.audioWorklet.addModule("inverter.js").then(() => {
     const osc = new AudioWorkletNode(context, 'vvvf-oscillator');
     osc.connect(context.destination);
-    osc.parameters.get('random_mod').value = 0;
+    osc.parameters.get('random_mod').value = 50;
     sendMsg(osc);
 });
 
